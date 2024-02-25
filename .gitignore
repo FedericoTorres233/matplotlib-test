@@ -1,0 +1,7 @@
+output/
+data/
+.replit
+replit.nix
+.pythonlibs
+.upm
+.config
