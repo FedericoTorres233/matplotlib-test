@@ -49,6 +49,59 @@ def procesar_medicamento(filepath):
   return fechas, dosis
 
 
+# Remove downloaded files
+def remove_folder(folder):
+  try:
+    # Remove the folder and its contents
+    shutil.rmtree(folder)
+    print(f"Folder {folder} and its contents removed successfully.")
+  except Exception as e:
+    print(f"An error occurred while removing folder {folder}: {e}")
+
+
+def plot_data(fecha1, dosis1, fecha2, dosis2):
+  # Crear el gráfico
+  fig, ax1 = plt.subplots(figsize=(10, 6))  # Tamaño de la figura
+  ax2 = ax1.twinx()  # Crear un segundo eje y
+
+  # Plotear los datos del medicamento 1 en el primer eje y (izquierda)
+  ax1.plot(fecha1,
+           dosis1,
+           marker='',
+           linestyle='-',
+           color='blue',
+           label=medicamento1)
+  ax1.set_ylabel(f'Dosis de {medicamento1} [mg]', color='blue')
+
+  # Plotear los datos del medicamento 2 en el segundo eje y (derecha)
+  ax2.plot(fecha2,
+           dosis2,
+           marker='',
+           linestyle='--',
+           color='purple',
+           label=medicamento2)
+  ax2.set_ylabel(f'Dosis de {medicamento2} [mg]', color='purple')
+
+  # Añadir etiquetas y título
+  plt.title('Dosis de Medicamentos de Octubre a Marzo')
+  plt.xlabel('Fecha [Mes]')
+
+  # Añadir leyendas
+  lines1, labels1 = ax1.get_legend_handles_labels()
+  lines2, labels2 = ax2.get_legend_handles_labels()
+  ax1.legend(lines1 + lines2, labels1 + labels2, loc='upper left')
+
+  # Ajustar las etiquetas del eje x
+  n = 7
+  ax1.set_xticks(range(0, len(fecha1), n))
+  ax1.set_xticklabels(fecha1[::n], rotation=45)
+
+  # Mostrar la gráfica
+  plt.grid(True)  # Habilitar cuadrícula
+  plt.tight_layout()  # Ajustar diseño
+  plt.savefig("./output/plot.png")  # Guardar la gráfica en un archivo
+
+
 # Set filenames
 med1_file = f'dosis_{medicamento1}.csv'
 med2_file = f'dosis_{medicamento2}.csv'
@@ -61,49 +114,8 @@ download_csv(med2_file, medicamento2)
 fecha1, dosis1 = procesar_medicamento(f'./{data_dir}/{med1_file}')
 fecha2, dosis2 = procesar_medicamento(f'./{data_dir}/{med2_file}')
 
-# Crear el gráfico
-fig, ax1 = plt.subplots(figsize=(10, 6))  # Tamaño de la figura
-ax2 = ax1.twinx()  # Crear un segundo eje y
+# Plot data
+plot_data(fecha1, dosis1, fecha2, dosis2)
 
-# Plotear los datos del medicamento 1 en el primer eje y (izquierda)
-ax1.plot(fecha1,
-         dosis1,
-         marker='',
-         linestyle='-',
-         color='blue',
-         label=medicamento1)
-ax1.set_ylabel(f'Dosis de {medicamento1} [mg]', color='blue')
-
-# Plotear los datos del medicamento 2 en el segundo eje y (derecha)
-ax2.plot(fecha2,
-         dosis2,
-         marker='',
-         linestyle='--',
-         color='purple',
-         label=medicamento2)
-ax2.set_ylabel(f'Dosis de {medicamento2} [mg]', color='purple')
-
-# Añadir etiquetas y título
-plt.title('Dosis de Medicamentos de Octubre a Marzo')
-plt.xlabel('Fecha [Mes]')
-
-# Añadir leyendas
-lines1, labels1 = ax1.get_legend_handles_labels()
-lines2, labels2 = ax2.get_legend_handles_labels()
-ax1.legend(lines1 + lines2, labels1 + labels2, loc='upper left')
-
-n = 7
-ax1.set_xticks(range(0, len(fecha1), n))  # Ajustar las etiquetas del eje x
-ax1.set_xticklabels(fecha1[::n], rotation=45)
-
-# Mostrar la gráfica
-plt.grid(True)  # Habilitar cuadrícula
-plt.tight_layout()  # Ajustar diseño
-plt.savefig("./output/plot.png")  # Guardar la gráfica en un archivo
-
-try:
-  # Remove the folder and its contents
-  shutil.rmtree('data')
-  print("Folder ./data and its contents removed successfully.")
-except Exception as e:
-  print(f"An error occurred while removing folder ./data: {e}")
+# Remove folder
+remove_folder(data_dir)
