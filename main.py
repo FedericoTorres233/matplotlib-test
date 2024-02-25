@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import requests
 
 # Constants
-medicamento1 = os.getenv('med1')
-medicamento2 = os.getenv('med2')
+medicamento1 = os.getenv('MED1')
+medicamento2 = os.getenv('MED2')
 output_dir = "./output"
 data_dir = "./data"
 
