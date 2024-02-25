@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "python-template"
+name = "grafico-medicamentos"
 version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
+description = "Programa que grafica 2 medicamentos a lo largo del tiempo"
+authors = ["Federico Torres <federicoivantorres1@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.10.0,<3.11"
