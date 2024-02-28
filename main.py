@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import requests
 
 # Constants
-med1 = os.getenv('MED1')
-med2 = os.getenv('MED2')
+med1_name = os.getenv('MED1')
+med2_name = os.getenv('MED2')
 output_dir = "./output"
 data_dir = "./data"
 plot_filename = "plot"
@@ -93,8 +93,8 @@ def plot_data(dates1, doses1, dates2, doses2):
   ax2 = ax1.twinx()  # Create a second y-axis
 
   # Plot the data for medicine 1 on the first y-axis (left)
-  ax1.plot(dates1, doses1, marker='', linestyle='-', color='blue', label=med1)
-  ax1.set_ylabel(f'Dosis de {med1} [mg]', color='blue')
+  ax1.plot(dates1, doses1, marker='', linestyle='-', color='blue', label=med1_name)
+  ax1.set_ylabel(f'Dosis de {med1_name} [mg]', color='blue')
 
   # Plot the data for drug 2 on the second y-axis (right)
   ax2.plot(dates2,
@@ -102,8 +102,8 @@ def plot_data(dates1, doses1, dates2, doses2):
            marker='',
            linestyle='--',
            color='purple',
-           label=med2)
-  ax2.set_ylabel(f'Dosis de {med2} [mg]', color='purple')
+           label=med2_name)
+  ax2.set_ylabel(f'Dosis de {med2_name} [mg]', color='purple')
 
   # Add labels and title
   plt.title('Dosis de Medicamentos de Octubre a Marzo')
@@ -126,12 +126,12 @@ def plot_data(dates1, doses1, dates2, doses2):
 
 
 # Set filenames
-med1_file_local = f'doses_{med1}.csv'
-med2_file_local = f'doses_{med2}.csv'
+med1_file_local = f'doses_{med1_name}.csv'
+med2_file_local = f'doses_{med2_name}.csv'
 
 # Download files
-download_csv(med1_file_local, med1)
-download_csv(med2_file_local, med2)
+download_csv(med1_file_local, med1_name)
+download_csv(med2_file_local, med2_name)
 
 # Process data from csv files
 dates1, doses1 = process_medicine(f'./{data_dir}/{med1_file_local}')
