@@ -93,7 +93,12 @@ def plot_data(dates1, doses1, dates2, doses2):
   ax2 = ax1.twinx()  # Create a second y-axis
 
   # Plot the data for medicine 1 on the first y-axis (left)
-  ax1.plot(dates1, doses1, marker='', linestyle='-', color='blue', label=med1_name)
+  ax1.plot(dates1,
+           doses1,
+           marker='',
+           linestyle='-',
+           color='green',
+           label=med1_name)
   ax1.set_ylabel(f'Dosis de {med1_name} [mg]', color='blue')
 
   # Plot the data for drug 2 on the second y-axis (right)
